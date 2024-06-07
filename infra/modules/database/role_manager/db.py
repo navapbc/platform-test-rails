@@ -12,13 +12,7 @@ def connect_as_master_user() -> Connection:
     database = os.environ["DB_NAME"]
     password = get_master_password()
 
-    print(
-        "Connecting to database: user=%s host=%s port=%s database=%s",
-        user,
-        host,
-        port,
-        database,
-    )
+    print(f"Connecting to database: {user=} {host=} {port=} {database=}")
     return Connection(
         user=user,
         host=host,
@@ -45,13 +39,7 @@ def connect_using_iam(user: str) -> Connection:
     port = os.environ["DB_PORT"]
     database = os.environ["DB_NAME"]
     token = client.generate_db_auth_token(DBHostname=host, Port=port, DBUsername=user)
-    print(
-        "Connecting to database: user=%s host=%s port=%s database=%s",
-        user,
-        host,
-        port,
-        database,
-    )
+    print(f"Connecting to database: {user=} {host=} {port=} {database=}")
     return Connection(
         user=user,
         host=host,
