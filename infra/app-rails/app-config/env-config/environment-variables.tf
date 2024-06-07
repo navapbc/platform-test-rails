@@ -19,6 +19,11 @@ locals {
   #   }
   # }
   secrets = {
+    SECRET_KEY_BASE = {
+      manage_method = "generated"
+      secret_store_name = "/${var.app_name}-${var.environment}/service/rails-secret-key-base"
+    }
+
     # Example generated secret
     # RANDOM_SECRET = {
     #   manage_method     = "generated"
