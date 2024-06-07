@@ -1,3 +1,3 @@
 locals {
-  feature_flags = ["foo", "bar"]
+  feature_flags = []
 }
