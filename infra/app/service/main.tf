@@ -161,12 +161,16 @@ module "service" {
     local.service_config.extra_environment_variables
   )
 
-  secrets = [
-    for secret_name in keys(local.service_config.secrets) : {
+  secrets = concat(
+    [for secret_name in keys(local.service_config.secrets) : {
       name      = secret_name
       valueFrom = module.secrets[secret_name].secret_arn
-    }
-  ]
+    }],
+    local.service_config.enable_identity_provider ? [{
+      name      = "COGNITO_CLIENT_SECRET"
+      valueFrom = module.identity_provider_client[0].client_secret_arn
+    }] : []
+  )
 
   extra_policies = merge({
     feature_flags_access = module.feature_flags.access_policy_arn,

@@ -29,3 +29,9 @@ resource "aws_cognito_user_pool_client" "client" {
   read_attributes  = ["email", "email_verified", "phone_number", "phone_number_verified", "updated_at"]
   write_attributes = ["email", "updated_at", "phone_number"]
 }
+
+resource "aws_ssm_parameter" "client_secret" {
+  name  = "/identity-provider/${var.name}/client-secret"
+  type  = "SecureString"
+  value = aws_cognito_user_pool_client.client.client_secret
+}
