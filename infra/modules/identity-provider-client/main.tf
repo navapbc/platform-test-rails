@@ -23,6 +23,9 @@ resource "aws_cognito_user_pool_client" "client" {
   # Avoid security issue where error messages indicate when a user doesn't exist
   prevent_user_existence_errors = "ENABLED"
 
+  enable_token_revocation                       = true
+  enable_propagate_additional_user_context_data = false
+
   read_attributes  = ["email", "email_verified", "phone_number", "phone_number_verified", "updated_at"]
   write_attributes = ["email", "updated_at", "phone_number"]
 }
