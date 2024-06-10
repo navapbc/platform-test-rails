@@ -31,7 +31,7 @@ resource "aws_cognito_user_pool_client" "client" {
 }
 
 resource "aws_ssm_parameter" "client_secret" {
-  name  = "/identity-provider/${var.name}/client-secret"
+  name  = "/${var.name}/identity-provider/client-secret"
   type  = "SecureString"
   value = aws_cognito_user_pool_client.client.client_secret
 }
