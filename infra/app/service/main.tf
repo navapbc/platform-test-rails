@@ -114,6 +114,7 @@ data "aws_route53_zone" "zone" {
 }
 
 module "identity-provider" {
+  count  = local.service_config.enable_identity_provider ? 1 : 0
   source = "../../modules/identity-provider"
   name   = local.service_config.service_name
 }

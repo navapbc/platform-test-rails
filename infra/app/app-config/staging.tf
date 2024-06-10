@@ -10,6 +10,7 @@ module "staging_config" {
   enable_https                    = false
   has_database                    = local.has_database
   has_incident_management_service = local.has_incident_management_service
+  enable_identity_provider        = false
 
   # Enables ECS Exec access for debugging or jump access.
   # See https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
