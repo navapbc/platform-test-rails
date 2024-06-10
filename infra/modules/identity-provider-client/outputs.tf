@@ -5,7 +5,7 @@ output "client_id" {
 
 output "client_secret_arn" {
   description = "The arn for the SSM parameter storing the user pool client secret"
-  value       = aws_cognito_user_pool_client.client.client_secret
+  value       = aws_ssm_parameter.client_secret.arn
 }
 
 output "access_policy_arn" {
