@@ -23,6 +23,9 @@ locals {
           #   private_key_ssm_name = "/certificates/sub.domain.com/private-key"
           #   certificate_body_ssm_name = "/certificates/sub.domain.com/certificate-body"
           # }
+          "platform-test-rails-dev.navateam.com" = {
+            source = "issued"
+          }
         }
       }
     }

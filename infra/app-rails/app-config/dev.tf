@@ -7,7 +7,7 @@ module "dev_config" {
   account_name                    = "dev"
   network_name                    = "dev"
   domain_name                     = "platform-test-rails-dev.navateam.com"
-  enable_https                    = false
+  enable_https                    = true
   has_database                    = local.has_database
   has_incident_management_service = local.has_incident_management_service
   enable_identity_provider        = true
