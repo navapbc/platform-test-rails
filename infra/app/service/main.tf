@@ -113,6 +113,11 @@ data "aws_route53_zone" "zone" {
   name  = local.network_config.domain_config.hosted_zone
 }
 
+module "identity-provider" {
+  source = "../../modules/identity-provider"
+  name   = local.service_config.service_name
+}
+
 module "service" {
   source       = "../../modules/service"
   service_name = local.service_config.service_name
