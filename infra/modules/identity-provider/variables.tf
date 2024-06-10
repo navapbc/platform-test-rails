@@ -12,5 +12,47 @@ variable "sender_email" {
 variable "sender_display_name" {
   type        = string
   description = "The display name for the identity service's emails. Only used if sender_email is provided"
-  default     = "value"
+  default     = null
+}
+
+variable "reply_to_email" {
+  type        = string
+  description = "Email address used as the REPLY-TO for identity service emails"
+  default     = null
+}
+
+variable "password_minimum_length" {
+  type        = number
+  description = "The password minimum length"
+  default     = 12
+}
+
+variable "temporary_password_validity_days" {
+  type        = number
+  description = "The number of days a temporary password is valid for"
+  default     = 7
+}
+
+variable "invite_email_message" {
+  type        = string
+  description = "The email body for an account invitation email sent by an admin user. Must contain {username} and {####} placeholders, for username and temporary password, respectively."
+  default     = null
+}
+
+variable "invite_email_subject" {
+  type        = string
+  description = "The email subject for an account invitation email sent by an admin user"
+  default     = null
+}
+
+variable "verification_email_message" {
+  type        = string
+  description = "The email body for a password reset email. Must contain the {####} placeholder."
+  default     = null
+}
+
+variable "verification_email_subject" {
+  type        = string
+  description = "The email subject for a password reset email"
+  default     = null
 }
