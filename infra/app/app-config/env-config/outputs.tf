@@ -29,7 +29,6 @@ output "service_config" {
     memory                   = var.service_memory
     desired_instance_count   = var.service_desired_instance_count
     enable_command_execution = var.enable_command_execution
-    enable_identity_provider = var.enable_identity_provider
 
     extra_environment_variables = merge(
       local.default_extra_environment_variables,
@@ -43,6 +42,11 @@ output "service_config" {
       # For job configs that don't define a source_bucket, add the source_bucket config property
       job_name => merge({ source_bucket = local.bucket_name }, job_config)
     }
+
+    # Identity provider configuration
+    enable_identity_provider = var.enable_identity_provider
+    auth_callback_urls       = ["https://${var.domain_name}"]
+    logout_urls              = ["https://${var.domain_name}"]
   }
 }
 

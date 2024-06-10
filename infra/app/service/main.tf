@@ -113,12 +113,6 @@ data "aws_route53_zone" "zone" {
   name  = local.network_config.domain_config.hosted_zone
 }
 
-module "identity-provider" {
-  count  = local.service_config.enable_identity_provider ? 1 : 0
-  source = "../../modules/identity-provider"
-  name   = local.service_config.service_name
-}
-
 module "service" {
   source       = "../../modules/service"
   service_name = local.service_config.service_name
@@ -196,4 +190,20 @@ module "feature_flags" {
 module "storage" {
   source = "../../modules/storage"
   name   = local.storage_config.bucket_name
+}
+
+module "identity_provider" {
+  count  = local.service_config.enable_identity_provider ? 1 : 0
+  source = "../../modules/identity-provider"
+  name   = local.service_config.service_name
+}
+
+module "identity_provider_client" {
+  count  = local.service_config.enable_identity_provider ? 1 : 0
+  source = "../../modules/identity-provider-client"
+  name   = local.service_config.service_name
+
+  cognito_user_pool_id = module.identity_provider.id
+  callback_urls        = local.service_config.auth_callback_urls
+  logout_urls          = local.service_config.logout_urls
 }
