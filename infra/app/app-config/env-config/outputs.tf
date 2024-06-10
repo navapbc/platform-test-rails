@@ -45,8 +45,8 @@ output "service_config" {
 
     # Identity provider configuration
     enable_identity_provider = var.enable_identity_provider
-    auth_callback_urls       = ["https://${var.domain_name}"]
-    logout_urls              = ["https://${var.domain_name}"]
+    auth_callback_urls       = var.domain_name != null ? ["https://${var.domain_name}"] : []
+    logout_urls              = var.domain_name != null ? ["https://${var.domain_name}"] : []
   }
 }
 
