@@ -203,7 +203,7 @@ module "identity_provider_client" {
   source = "../../modules/identity-provider-client"
   name   = local.service_config.service_name
 
-  cognito_user_pool_id = module.identity_provider.id
+  cognito_user_pool_id = module.identity_provider.user_pool_id
   callback_urls        = local.service_config.auth_callback_urls
   logout_urls          = local.service_config.logout_urls
 }
