@@ -156,7 +156,7 @@ module "service" {
     },
     local.service_config.enable_identity_provider ? {
       COGNITO_USER_POOL_ID = module.identity_provider[0].user_pool_id
-      COGNITO_CLIENT_ID    = module.identity_provider_client.client_id
+      COGNITO_CLIENT_ID    = module.identity_provider_client[0].client_id
     } : {},
     local.service_config.extra_environment_variables
   )
@@ -173,7 +173,7 @@ module "service" {
     storage_access       = module.storage.access_policy_arn
     },
     local.service_config.enable_identity_provider ? {
-      identity_access = module.identity_provider_client.access_policy_arn,
+      identity_access = module.identity_provider_client[0].access_policy_arn,
     } : {}
   )
 
