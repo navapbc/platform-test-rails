@@ -76,8 +76,6 @@ resource "aws_cognito_user_pool" "main" {
   }
 
   admin_create_user_config {
-    allow_admin_create_user_only = true
-
     # Optionally configures email template for activating the account
     dynamic "invite_message_template" {
       for_each = var.invite_email_message != null || var.invite_email_subject != null ? [0] : []
