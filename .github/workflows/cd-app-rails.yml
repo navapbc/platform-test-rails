@@ -9,7 +9,7 @@ on:
   #   branches:
   #     - "main"
   #   paths:
-  #     - "app/**"
+  #     - "app-rails/**"
   #     - "bin/**"
   #     - "infra/**"
   workflow_dispatch:
@@ -29,5 +29,5 @@ jobs:
     name: Deploy
     uses: ./.github/workflows/deploy.yml
     with:
-      app_name: "app"
+      app_name: "app-rails"
       environment: ${{ inputs.environment || 'dev' }}
