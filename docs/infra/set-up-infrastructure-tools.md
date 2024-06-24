@@ -28,8 +28,6 @@ You may need to set the Terraform version.
 tfenv use 1.8.0
 ```
 
-If you are unfamiliar with Terraform, check out this [basic introduction to Terraform](./intro-to-terraform.md).
-
 ### Install AWS CLI
 
 The [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts. Install the AWS command line tool by following the instructions found here:
@@ -42,7 +40,7 @@ The [Go programming language](https://go.dev/dl/) is required to run [Terratest]
 
 ### Install GitHub CLI
 
-The [GitHub CLI](https://cli.github.com/) is useful for automating certain operations for GitHub such as with GitHub actions. This is needed to run [check-github-actions-auth.sh](/bin/check-github-actions-auth.sh)
+The [GitHub CLI](https://cli.github.com/) is useful for automating certain operations for GitHub such as with GitHub actions. This is needed to run [check-github-actions-auth](/bin/check-github-actions-auth)
 
 ```bash
 brew install gh
@@ -52,9 +50,9 @@ brew install gh
 
 We have several optional utilities for running infrastructure linters locally. These are run as part of the CI pipeline, therefore, it is often simpler to test them locally first.
 
-* [Shellcheck](https://github.com/koalaman/shellcheck)
-* [actionlint](https://github.com/rhysd/actionlint)
-* [markdown-link-check](https://github.com/tcort/markdown-link-check)
+- [Shellcheck](https://github.com/koalaman/shellcheck)
+- [actionlint](https://github.com/rhysd/actionlint)
+- [markdown-link-check](https://github.com/tcort/markdown-link-check)
 
 ```bash
 brew install shellcheck

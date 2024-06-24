@@ -7,7 +7,7 @@ from pg8000.native import Connection, identifier
 import db
 
 
-def manage():
+def manage(config: dict):
     """Manage database roles, schema, and privileges"""
 
     print(
@@ -15,7 +15,7 @@ def manage():
     )
     with db.connect_as_master_user() as master_conn:
         print_current_db_config(master_conn)
-        configure_database(master_conn)
+        configure_database(master_conn, config)
         roles, schema_privileges = print_current_db_config(master_conn)
         roles_with_groups = get_roles_with_groups(master_conn)
 
@@ -82,15 +82,20 @@ def get_schema_privileges(conn: Connection) -> list[tuple[str, str]]:
     ]
 
 
-def configure_database(conn: Connection) -> None:
+def configure_database(conn: Connection, config: dict) -> None:
     print("-- Configuring database")
     app_username = os.environ.get("APP_USER")
     migrator_username = os.environ.get("MIGRATOR_USER")
     schema_name = os.environ.get("DB_SCHEMA")
     database_name = os.environ.get("DB_NAME")
 
+    # In Postgres 15 and higher, the CREATE privilege on the public
+    # schema is already revoked/removed from all users except the
+    # database owner. However, we are explicitly revoking access anyways
+    # for projects that wish to use earlier versions of Postgres.
     print("---- Revoking default access on public schema")
     db.execute(conn, "REVOKE CREATE ON SCHEMA public FROM PUBLIC")
+    
     print("---- Revoking database access from public role")
     db.execute(conn, f"REVOKE ALL ON DATABASE {identifier(database_name)} FROM PUBLIC")
     print(f"---- Setting default search path to schema {schema_name}")
@@ -101,7 +106,7 @@ def configure_database(conn: Connection) -> None:
 
     configure_roles(conn, [migrator_username, app_username], database_name)
     configure_schema(conn, schema_name, migrator_username, app_username)
-
+    configure_superuser_extensions(conn, config["superuser_extensions"])
 
 def configure_roles(conn: Connection, roles: list[str], database_name: str) -> None:
     print("---- Configuring roles")
@@ -198,3 +203,14 @@ def print_schema_privileges(schema_privileges: list[tuple[str, str]]) -> None:
     print("---- Schema privileges")
     for name, acl in schema_privileges:
         print(f"------ Schema {name=} {acl=}")
+
+
+def configure_superuser_extensions(conn: Connection, superuser_extensions: dict):
+    print("---- Configuring superuser extensions")
+    for extension, should_be_enabled in superuser_extensions.items():
+        if should_be_enabled:
+            print(f"------ Enabling {extension} extension")
+            db.execute(conn, f"CREATE EXTENSION IF NOT EXISTS {identifier(extension)} SCHEMA pg_catalog")
+        else:
+            print(f"------ Disabling or skipping {extension} extension")
+            db.execute(conn, f"DROP EXTENSION IF EXISTS {identifier(extension)}")
