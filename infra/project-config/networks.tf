@@ -8,7 +8,7 @@ locals {
         # Placeholder value for the hosted zone
         # A hosted zone represents a domain and all of its subdomains. For example, a
         # hosted zone of foo.domain.com includes foo.domain.com, bar.foo.domain.com, etc.
-        hosted_zone = "hosted.zone.for.dev.network.com"
+        hosted_zone = "platform-test-rails-dev.navateam.com"
 
         certificate_configs = {
           # Example certificate configuration for a certificate that is managed by the project
@@ -23,6 +23,9 @@ locals {
           #   private_key_ssm_name = "/certificates/sub.domain.com/private-key"
           #   certificate_body_ssm_name = "/certificates/sub.domain.com/certificate-body"
           # }
+          "platform-test-rails-dev.navateam.com" = {
+            source = "issued"
+          }
         }
       }
     }

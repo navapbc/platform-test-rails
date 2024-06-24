@@ -7,6 +7,7 @@ locals {
     # WORKER_THREADS_COUNT    = 4
     # LOG_LEVEL               = "info"
     # DB_CONNECTION_POOL_SIZE = 5
+    BUCKET_NAME = local.bucket_name
   }
 
   # Configuration for secrets
@@ -30,5 +31,10 @@ locals {
     #   manage_method     = "manual"
     #   secret_store_name = "/${var.app_name}-${var.environment}/secret-sauce"
     # }
+
+    SECRET_KEY_BASE = {
+      manage_method     = "generated"
+      secret_store_name = "/${var.app_name}-${var.environment}/service/rails-secret-key-base"
+    }
   }
 }
