@@ -6,8 +6,8 @@ module "dev_config" {
   environment                     = "dev"
   account_name                    = "dev"
   network_name                    = "dev"
-  domain_name                     = null
-  enable_https                    = false
+  domain_name                     = "platform-test-rails-dev.navateam.com"
+  enable_https                    = true
   has_database                    = local.has_database
   has_incident_management_service = local.has_incident_management_service
   enable_identity_provider        = local.enable_identity_provider
@@ -15,5 +15,5 @@ module "dev_config" {
   # Enables ECS Exec access for debugging or jump access.
   # See https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
   # Defaults to `false`. Uncomment the next line to enable.
-  # enable_command_execution = true
+  enable_command_execution = true
 }
