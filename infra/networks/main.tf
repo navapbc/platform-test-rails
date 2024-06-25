@@ -65,7 +65,7 @@ module "project_config" {
 }
 
 module "app_config" {
-  source = "../app/app-config"
+  source = "../app-rails/app-config"
 }
 
 module "network" {
