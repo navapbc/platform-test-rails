@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_13_000011) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
