@@ -49,13 +49,13 @@ There is currently no file upload or download functionality at this time, so ple
 - [x] Use a secondary verification when users change their password
     - Note: Change password requires 6 digit code from email sent to user's email address.
 - [ ] Require user's password when changing email.
-- [ ] Include honeypot fields and logic on Non logged in forms to catch bots that spam all fields (good resource: https://nedbatchelder.com/text/stopbots.html).
+- [x] Include honeypot fields and logic on Non logged in forms to catch bots that spam all fields (good resource: https://nedbatchelder.com/text/stopbots.html).
 - [ ] Consider using Captcha on account creation, login, change password, and change email forms.
     - Note: Captchas are often not accessible to screen readers and their use should be part of a UX discussion.
 - [x] Filter log entries so they do not include passwords or secrets
     - Note:  Log filtering is set in  [filter_parameter_logging.rb](app-rails/config/initializers/filter_parameter_logging.rb): `:passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn`.
 - [x] Use the correct Ruby REGEX: `\A` and `\z` and not the more common: `/^` and `$/`.
-- [ ] Add `multiline: true` to regex `format:` in validations.
+    - Note: If there is a need to use `/^` and `$/` in the regex, add `multiline: true` to regex `format:` in validations.
 - [x] When searching for data belonging to the user, search using Active Record from the user and not from the target data object. ie. Instead of doing: `@task = Task.find(params[:id])`, instead do: `@user.tasks.find(params[:id])`. 
     - Note: This application is also using [pundit](https://github.com/varvet/pundit) to support resource authorization.
 
